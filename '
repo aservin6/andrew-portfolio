@@ -35,30 +35,13 @@ export default function Portfolio() {
         id="videos"
         className="relative flex min-h-screen items-center justify-center"
       >
-        <div className="mx-auto flex w-2/3 flex-col items-center justify-center space-y-12">
+        <div className="mx-auto flex w-2/3 flex-col items-center justify-center space-y-3">
           <h2 className="text-foreground self-start text-3xl font-black tracking-tighter">
             Film
           </h2>
-          <div className="grid w-full grid-cols-[1fr_2fr]">
-            <div className="flex h-1/3 flex-col justify-between py-3">
-              <h3 className="flex flex-col">
-                <span className="text-accent font-semibold">Title:</span>
-                <span className="text-xl font-bold">Lorem Ipsum Dolor Sit</span>
-              </h3>
-              <div className="flex flex-col space-y-3">
-                <span className="text-accent font-semibold">
-                  Description / Details
-                </span>
-                <p className="text-sm font-semibold tracking-tighter normal-case">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Phasellus viverra posuere justo ut volutpat. Sed et placerat
-                  est, vitae lacinia sapien. Vivamus condimentum ipsum turpis,
-                  et vulputate tortor egestas vel. Quisque dignissim semper
-                  rhoncus.{" "}
-                </p>
-              </div>
-            </div>
-            <div className="bg-foreground h-[52rem] w-full"></div>
+          <div className="w-full border border-red-500">
+            <div></div>
+            <div></div>
           </div>
 
           <PageIndicator

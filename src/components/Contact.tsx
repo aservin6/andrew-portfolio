@@ -1,6 +1,10 @@
 export default function Contact() {
   return (
-    <section className="min-h-screen text-background">
+    <section
+      id="contact"
+      data-theme="dark"
+      className="text-background min-h-screen"
+    >
       <div>Contact</div>
     </section>
   );
