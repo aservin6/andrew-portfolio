@@ -39,7 +39,7 @@ export default function Portfolio() {
           <h2 className="text-foreground self-start text-3xl font-black tracking-tighter">
             Film
           </h2>
-          <div className="grid w-full grid-cols-[1fr_2fr]">
+          <div className="grid w-full grid-cols-[1fr_2fr] gap-10">
             <div className="flex h-1/3 flex-col justify-between py-3">
               <h3 className="flex flex-col">
                 <span className="text-accent font-semibold">Title:</span>
@@ -58,7 +58,10 @@ export default function Portfolio() {
                 </p>
               </div>
             </div>
-            <div className="bg-foreground h-[52rem] w-full"></div>
+            <div className="grid h-[52rem] w-full grid-rows-[3fr_1fr] gap-3 bg-neutral-400 p-3">
+              <div className="bg-neutral-800"></div>
+              <div className="bg-neutral-800"></div>
+            </div>
           </div>
 
           <PageIndicator
