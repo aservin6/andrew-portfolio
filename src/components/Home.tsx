@@ -12,7 +12,7 @@ export default function Home() {
       <div className="flex items-center justify-center">
         <div className="absolute flex h-5/6 w-5/6 flex-col items-center justify-center space-y-3 sm:space-y-0 lg:flex lg:max-w-5xl">
           {/* Client Name Header */}
-          <div className="relative z-50 mx-auto flex w-fit flex-col justify-center -space-y-4 text-6xl font-black sm:text-8xl md:text-9xl lg:text-[10rem]">
+          <div className="relative z-50 mx-auto flex w-fit flex-col justify-center -space-y-2 text-6xl font-black sm:text-8xl md:-space-y-4 md:text-9xl lg:text-[10rem]">
             <span className="tracking-tighter">Andrew</span>
             <span className="tracking-tighter">Perez</span>
           </div>
