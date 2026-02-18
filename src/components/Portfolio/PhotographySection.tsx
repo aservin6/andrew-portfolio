@@ -7,8 +7,8 @@ export default function PhotographySection() {
       id="photos"
       className="relative flex min-h-screen md:items-center md:justify-center"
     >
-      <div className="mx-auto flex w-full max-w-6xl flex-col justify-center space-y-3 border border-green-500 px-1.5 md:w-full">
-        <h2 className="text-foreground self-start py-3 text-3xl font-black tracking-tighter">
+      <div className="mx-auto flex w-full max-w-6xl flex-col justify-center space-y-3 px-1.5 md:w-full">
+        <h2 className="text-foreground self-start pt-9 pb-3 text-3xl font-black tracking-tighter">
           Photography
         </h2>
         <div className="*:bg-foreground *:text-background mb-12 grid h-full w-full grid-cols-2 grid-rows-6 gap-1 text-3xl *:min-h-40 *:w-full">
