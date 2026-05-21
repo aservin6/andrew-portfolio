@@ -1,4 +1,4 @@
-# Andrew Portfolio
+# Photographer Portfolio
 
 A clean, responsive portfolio site for showcasing photography and film work. Built with React, TypeScript, Vite, Tailwind CSS, and Sanity CMS.
 
@@ -17,42 +17,3 @@ A clean, responsive portfolio site for showcasing photography and film work. Bui
 - Vite
 - Tailwind CSS
 - Sanity CMS
-
-## Getting Started
-
-```bash
-npm install
-npm run dev
-```
-
-Build for production:
-
-```bash
-npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview
-```
-
-## Sanity Studio
-
-Run the local Sanity Studio:
-
-```bash
-npm run studio:dev
-```
-
-Required environment variables:
-
-```env
-VITE_SANITY_PROJECT_ID=your_project_id
-VITE_SANITY_DATASET=production
-VITE_SANITY_API_VERSION=2026-05-20
-```
-
-## License
-
-Private portfolio project.
