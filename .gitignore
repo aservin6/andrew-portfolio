@@ -10,6 +10,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.env
+.env.*
+!.env.example
 *.local
 
 # Editor directories and files
@@ -25,3 +28,7 @@ dist-ssr
 
 # Local Netlify folder
 .netlify
+
+# Sanity runtime/build artifacts
+.sanity
+andrew-perez-portfolio
