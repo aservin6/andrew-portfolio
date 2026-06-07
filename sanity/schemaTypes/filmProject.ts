@@ -41,33 +41,83 @@ export const filmProject = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'stills',
-      title: 'Stills / Gallery Images',
-      description: 'Additional stills shown below the cover image. Add at least 3 when possible.',
-      type: 'array',
-      of: [
-        {
-          type: 'image',
-          options: {hotspot: true},
-          fields: [
-            defineField({
-              name: 'alt',
-              title: 'Alt Text',
-              description: 'Required accessibility description for this still image.',
-              type: 'string',
-              validation: (rule) => rule.required(),
-            }),
-          ],
-        },
-      ],
-      validation: (rule) => rule.min(1),
-    }),
-    defineField({
       name: 'watchUrl',
       title: 'Watch URL',
       type: 'url',
       description: 'Paste the full YouTube, Vimeo, or external watch link. Videos are not uploaded directly here.',
       validation: (rule) => rule.required().uri({scheme: ['http', 'https']}),
+    }),
+    defineField({
+      name: 'videos',
+      title: 'Additional Videos',
+      description:
+        'Optional video links shown as selectable items below the main player. Paste full YouTube or Vimeo URLs.',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'video',
+          title: 'Video',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'url',
+              title: 'Video URL',
+              type: 'url',
+              validation: (rule) => rule.required().uri({scheme: ['http', 'https']}),
+            }),
+            defineField({
+              name: 'thumbnail',
+              title: 'Thumbnail / Still Image',
+              description: 'Still image shown in the video selector tab. Wide/landscape images work best.',
+              type: 'image',
+              options: {hotspot: true},
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                  validation: (rule) => rule.required(),
+                }),
+              ],
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 3,
+            }),
+            defineField({
+              name: 'year',
+              title: 'Year',
+              type: 'number',
+              validation: (rule) => rule.integer().min(1900).max(2100),
+            }),
+            defineField({
+              name: 'role',
+              title: 'Role',
+              type: 'string',
+            }),
+            defineField({
+              name: 'client',
+              title: 'Client',
+              type: 'string',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'url',
+              media: 'thumbnail',
+            },
+          },
+        }),
+      ],
     }),
     defineField({
       name: 'year',

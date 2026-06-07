@@ -3,10 +3,10 @@ import imageUrlBuilder from '@sanity/image-url'
 import {sanityClient} from './client'
 import type {SanityImage} from './types'
 
-const builder = imageUrlBuilder(sanityClient)
+const builder = sanityClient ? imageUrlBuilder(sanityClient) : null
 
 export function urlForImage(source: SanityImage) {
-  return builder.image(source).auto('format').fit('max')
+  return builder?.image(source).auto('format').fit('max')
 }
 
 export function imageUrl(source: SanityImage, width: number, quality = 85) {
@@ -14,11 +14,11 @@ export function imageUrl(source: SanityImage, width: number, quality = 85) {
     return source.placeholderUrl
   }
 
-  return urlForImage(source).width(width).quality(quality).url()
+  return urlForImage(source)?.width(width).quality(quality).url() ?? ''
 }
 
 export function imageSrcSet(source: SanityImage, widths: number[], quality = 82) {
-  if (source.placeholderUrl) {
+  if (source.placeholderUrl || !builder) {
     return undefined
   }
 

@@ -44,6 +44,15 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'favicon',
+      title: 'Favicon',
+      description: 'Optional browser favicon. Accepted formats: .ico, .png, .svg, .gif, .jpg, or .webp.',
+      type: 'file',
+      options: {
+        accept: '.ico,.png,.svg,.gif,.jpg,.jpeg,.webp,image/x-icon,image/vnd.microsoft.icon,image/png,image/svg+xml,image/gif,image/jpeg,image/webp',
+      },
+    }),
+    defineField({
       name: 'contactEmail',
       title: 'Contact Email',
       description: 'Email address shown in the contact section.',

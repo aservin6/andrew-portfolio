@@ -6,6 +6,7 @@ import {
 import type { Photo } from "@/sanity/types";
 import { usePortfolioData } from "@/sanity/usePortfolioData";
 import PageIndicator from "../ui/page-indicator";
+import PortfolioMessage from "./PortfolioMessage";
 
 const photoAspectClasses = [
   "aspect-[4/5]",
@@ -74,13 +75,5 @@ function PhotoGridItem({ photo, index }: { photo: Photo; index: number }) {
         decoding="async"
       />
     </figure>
-  );
-}
-
-function PortfolioMessage({ message }: { message: string }) {
-  return (
-    <div className="text-accent mb-12 flex min-h-40 items-center justify-center border border-current p-6 text-center text-sm font-bold tracking-tighter">
-      {message}
-    </div>
   );
 }

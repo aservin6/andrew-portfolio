@@ -19,14 +19,18 @@ export default function Contact() {
             <h2 className="self-start text-[clamp(3.5rem,14vw,6rem)] leading-none tracking-tighter md:text-8xl">
               Contact Me
             </h2>
-            <ul className="max-w-full space-y-3 text-sm break-words sm:text-base">
+            <ul className="max-w-full space-y-3 text-sm wrap-break-word sm:text-base">
               <li>
                 <a href={emailHref(settings.contactEmail)}>
                   / {settings.contactEmail}
                 </a>
               </li>
               <li className="flex items-center space-x-1.5">
-                <a href={settings.instagramUrl} target="_blank" rel="noreferrer">
+                <a
+                  href={settings.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   / Instagram
                 </a>
                 <ExternalLink className="size-5" />

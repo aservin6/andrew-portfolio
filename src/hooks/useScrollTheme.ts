@@ -6,33 +6,49 @@ export function useScrollTheme(): Theme {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    const sections = document.querySelectorAll<HTMLElement>(
-      "section[data-theme]",
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("section[data-theme]"),
     );
+    let frameId: number | null = null;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find the most visible section
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    function updateTheme() {
+      frameId = null;
 
-        if (visible) {
-          const sectionTheme = visible.target.getAttribute(
-            "data-theme",
-          ) as Theme;
-          if (sectionTheme) setTheme(sectionTheme);
-        }
-      },
-      {
-        root: null,
-        threshold: [0.25, 0.5, 0.75],
-      },
-    );
+      const nav = document.querySelector<HTMLElement>("nav");
+      const navRect = nav?.getBoundingClientRect();
+      const sampleY = navRect ? navRect.top + navRect.height / 2 : 0;
+      const activeSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
 
-    sections.forEach((section) => observer.observe(section));
+        return rect.top <= sampleY && rect.bottom > sampleY;
+      });
+      const sectionTheme = activeSection?.getAttribute("data-theme") as
+        | Theme
+        | null;
 
-    return () => observer.disconnect();
+      if (sectionTheme) {
+        setTheme(sectionTheme);
+      }
+    }
+
+    function scheduleUpdate() {
+      if (frameId === null) {
+        frameId = window.requestAnimationFrame(updateTheme);
+      }
+    }
+
+    updateTheme();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
   return theme;

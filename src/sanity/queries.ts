@@ -1,6 +1,6 @@
 import {queryOptions} from '@tanstack/react-query'
 
-import {sanityClient} from './client'
+import {hasSanityConfig, sanityClient} from './client'
 import type {PortfolioData} from './types'
 
 export const portfolioDataQuery = `{
@@ -9,6 +9,13 @@ export const portfolioDataQuery = `{
     initials,
     roleLabel,
     profileImage,
+    favicon{
+      asset->{
+        url,
+        mimeType,
+        originalFilename
+      }
+    },
     contactEmail,
     instagramUrl,
     youtubeUrl
@@ -24,7 +31,7 @@ export const portfolioDataQuery = `{
     title,
     description,
     coverImage,
-    stills,
+    videos,
     watchUrl,
     year,
     role,
@@ -33,6 +40,10 @@ export const portfolioDataQuery = `{
 }`
 
 export async function fetchPortfolioData() {
+  if (!hasSanityConfig || !sanityClient) {
+    return {settings: null, photos: [], films: []}
+  }
+
   return sanityClient.fetch<PortfolioData>(portfolioDataQuery)
 }
 

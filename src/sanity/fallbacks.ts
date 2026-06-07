@@ -14,12 +14,9 @@ export function getSiteSettings(settings?: SiteSettings | null) {
 }
 
 export function splitArtistName(artistName: string) {
-  const [firstName, ...rest] = artistName.trim().split(/\s+/)
+  const nameParts = artistName.trim().split(/\s+/).filter(Boolean)
 
-  return {
-    firstName: firstName || fallbackSiteSettings.artistName.split(' ')[0],
-    remainingName: rest.join(' ') || fallbackSiteSettings.artistName.split(' ')[1],
-  }
+  return nameParts.length > 0 ? nameParts : fallbackSiteSettings.artistName.split(' ')
 }
 
 export function emailHref(email: string) {
