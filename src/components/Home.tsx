@@ -6,11 +6,14 @@ import PageIndicator from "./ui/page-indicator";
 
 export default function Home() {
   const { data } = usePortfolioData();
-  const settings = getSiteSettings(data?.settings);
-  const nameLines = splitArtistName(settings.artistName);
+  const siteSettings = data?.settings;
+  const settings = getSiteSettings(siteSettings);
+  const nameLines = siteSettings?.artistName
+    ? splitArtistName(siteSettings.artistName)
+    : [];
   const profileImageSrc = settings.profileImage
     ? urlForImage(settings.profileImage)?.width(700).quality(85).url()
-    : "/andrew-profile.jpg";
+    : undefined;
 
   return (
     <section
@@ -50,11 +53,13 @@ export default function Home() {
             </div>
             {/* Client Portrait */}
             <div className="relative flex flex-col md:w-auto md:max-w-xs lg:max-w-sm">
-              <img
-                src={profileImageSrc}
-                alt={settings.profileImage?.alt ?? settings.artistName}
-                className="relative z-30 max-h-96 w-full object-cover md:max-h-full"
-              />
+              {profileImageSrc ? (
+                <img
+                  src={profileImageSrc}
+                  alt={settings.profileImage?.alt ?? settings.artistName}
+                  className="relative z-30 max-h-96 w-full object-cover md:max-h-full"
+                />
+              ) : null}
               <span className="text-accent text-[0.625rem] tracking-tighter md:text-sm">
                 {settings.roleLabel}
               </span>
