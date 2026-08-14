@@ -51,7 +51,7 @@ function FilmVideoTab({
   return (
     <button
       type="button"
-      className={`group min-w-44 overflow-hidden border-2 text-left tracking-tighter uppercase transition-colors sm:min-w-56 lg:min-w-64 ${
+      className={`group w-44 shrink-0 overflow-hidden border-2 text-left tracking-tighter uppercase transition-colors sm:w-56 lg:w-64 ${
         isSelected
           ? "border-foreground bg-foreground/15 text-foreground"
           : "border-foreground text-foreground hover:bg-foreground/10 bg-transparent"
