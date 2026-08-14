@@ -58,7 +58,7 @@ function FilmVideoTab({
       }`}
       onClick={(event) => onSelect(item, event.currentTarget)}
     >
-      <span className="flex min-h-12 items-end justify-between gap-3 p-2">
+      <span className="flex items-end justify-between gap-3 px-2 pt-0 pb-2">
         <span className="text-accent text-[0.625rem] font-light">
           {String(index + 1).padStart(2, "0")}
         </span>
