@@ -20,7 +20,7 @@ export default function FilmVideoDetails({
         {details ? (
           <span className="text-xs font-bold normal-case">{details}</span>
         ) : null}
-        <p className="text-sm font-semibold normal-case">{description}</p>
+        <p className="mt-2 text-sm font-semibold normal-case">{description}</p>
       </div>
     </div>
   );
