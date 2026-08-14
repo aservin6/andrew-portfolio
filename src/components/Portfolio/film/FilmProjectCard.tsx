@@ -1,24 +1,28 @@
 import { useRef, useState } from "react";
 
-import type { FilmProject, FilmVideo } from "@/sanity/types";
+import type { FilmProject } from "@/sanity/types";
 import FilmVideoActions from "./FilmVideoActions";
 import FilmVideoCarousel from "./FilmVideoCarousel";
 import FilmVideoDetails from "./FilmVideoDetails";
 import FilmVideoPlayer from "./FilmVideoPlayer";
 import {
-  getFilmVideos,
+  getAllFilmVideos,
   getVideoDetails,
-  type VideoScrollDirection,
+  type FilmVideoItem,
 } from "./filmUtils";
 
-export default function FilmProjectCard({ film }: { film: FilmProject }) {
-  const videos = getFilmVideos(film);
+export default function FilmProjectCard({ films }: { films: FilmProject[] }) {
+  const videos = getAllFilmVideos(films);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [selectedVideo, setSelectedVideo] = useState(videos[0]);
-  const selectedDescription = selectedVideo.description ?? film.description;
-  const selectedDetails = getVideoDetails(selectedVideo, film);
+  const [selectedItem, setSelectedItem] = useState(videos[0]);
+  const selectedDescription =
+    selectedItem.video.description ?? selectedItem.film.description;
+  const selectedDetails = getVideoDetails(
+    selectedItem.video,
+    selectedItem.film,
+  );
 
-  function scrollSelectedTabIntoStartPosition(tab: HTMLButtonElement) {
+  function scrollSelectedTabIntoStartPosition(tab: HTMLElement) {
     const carousel = carouselRef.current;
 
     if (!carousel) {
@@ -38,47 +42,53 @@ export default function FilmProjectCard({ film }: { film: FilmProject }) {
     }
   }
 
-  function scrollVideoTabs(direction: VideoScrollDirection) {
-    const carousel = carouselRef.current;
-
-    if (!carousel) {
-      return;
-    }
-
-    carousel.scrollBy({
-      left:
-        direction === "next"
-          ? carousel.clientWidth * 0.8
-          : -carousel.clientWidth * 0.8,
-      behavior: "smooth",
-    });
+  function selectVideo(item: FilmVideoItem, tab: HTMLButtonElement) {
+    setSelectedItem(item);
+    scrollSelectedTabIntoStartPosition(tab);
   }
 
-  function selectVideo(video: FilmVideo, tab: HTMLButtonElement) {
-    setSelectedVideo(video);
-    scrollSelectedTabIntoStartPosition(tab);
+  function selectAdjacentVideo(direction: "previous" | "next") {
+    const selectedIndex = videos.findIndex(
+      (item) =>
+        item.film._id === selectedItem.film._id &&
+        item.video.url === selectedItem.video.url,
+    );
+    const nextIndex =
+      direction === "next"
+        ? (selectedIndex + 1) % videos.length
+        : (selectedIndex - 1 + videos.length) % videos.length;
+    const nextItem = videos[nextIndex];
+    const nextTab = carouselRef.current?.children[nextIndex];
+
+    setSelectedItem(nextItem);
+
+    if (nextTab instanceof HTMLElement) {
+      scrollSelectedTabIntoStartPosition(nextTab);
+    }
   }
 
   return (
     <article className="mb-12 grid w-full gap-3">
       <div className="grid h-full w-full gap-1.5 p-1.5">
-        <FilmVideoPlayer film={film} selectedVideo={selectedVideo} />
+        <FilmVideoPlayer
+          film={selectedItem.film}
+          selectedVideo={selectedItem.video}
+        />
         <FilmVideoCarousel
           carouselRef={carouselRef}
-          film={film}
-          selectedVideo={selectedVideo}
+          selectedItem={selectedItem}
           videos={videos}
           onSelect={selectVideo}
         />
         <FilmVideoActions
-          selectedVideo={selectedVideo}
-          onScroll={scrollVideoTabs}
+          onSelectNext={() => selectAdjacentVideo("next")}
+          onSelectPrevious={() => selectAdjacentVideo("previous")}
         />
       </div>
       <FilmVideoDetails
         description={selectedDescription}
         details={selectedDetails}
-        title={selectedVideo.title}
+        title={selectedItem.video.title}
       />
     </article>
   );

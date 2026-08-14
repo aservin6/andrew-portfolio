@@ -1,33 +1,33 @@
 import type { RefObject } from "react";
 
 import { imageSrcSet, imageUrl } from "@/sanity/image";
-import type { FilmProject, FilmVideo } from "@/sanity/types";
+import type { FilmVideoItem } from "./filmUtils";
 
 export default function FilmVideoCarousel({
   carouselRef,
-  film,
-  selectedVideo,
+  selectedItem,
   videos,
   onSelect,
 }: {
   carouselRef: RefObject<HTMLDivElement | null>;
-  film: FilmProject;
-  selectedVideo: FilmVideo;
-  videos: FilmVideo[];
-  onSelect: (video: FilmVideo, tab: HTMLButtonElement) => void;
+  selectedItem: FilmVideoItem;
+  videos: FilmVideoItem[];
+  onSelect: (item: FilmVideoItem, tab: HTMLButtonElement) => void;
 }) {
   return (
     <div
       ref={carouselRef}
       className="flex gap-1.5 overflow-x-auto pb-2 text-xs font-bold [scrollbar-width:thin]"
     >
-      {videos.map((video, index) => (
+      {videos.map((item, index) => (
         <FilmVideoTab
-          key={video._key ?? `${video.url}-${index}`}
-          fallbackThumbnail={film.coverImage}
+          key={`${item.film._id}-${item.video._key ?? item.video.url}-${index}`}
           index={index}
-          isSelected={video.url === selectedVideo.url}
-          video={video}
+          isSelected={
+            item.film._id === selectedItem.film._id &&
+            item.video.url === selectedItem.video.url
+          }
+          item={item}
           onSelect={onSelect}
         />
       ))}
@@ -36,19 +36,17 @@ export default function FilmVideoCarousel({
 }
 
 function FilmVideoTab({
-  fallbackThumbnail,
   index,
   isSelected,
-  video,
+  item,
   onSelect,
 }: {
-  fallbackThumbnail: FilmProject["coverImage"];
   index: number;
   isSelected: boolean;
-  video: FilmVideo;
-  onSelect: (video: FilmVideo, tab: HTMLButtonElement) => void;
+  item: FilmVideoItem;
+  onSelect: (item: FilmVideoItem, tab: HTMLButtonElement) => void;
 }) {
-  const thumbnail = video.thumbnail ?? fallbackThumbnail;
+  const thumbnail = item.video.thumbnail ?? item.film.coverImage;
 
   return (
     <button
@@ -58,14 +56,14 @@ function FilmVideoTab({
           ? "border-background bg-background text-foreground"
           : "border-foreground bg-foreground text-background hover:border-background hover:bg-background hover:text-foreground"
       }`}
-      onClick={(event) => onSelect(video, event.currentTarget)}
+      onClick={(event) => onSelect(item, event.currentTarget)}
     >
       <span className="flex min-h-0 items-end justify-between gap-3 p-2">
         <span className="text-accent text-[0.625rem] font-light">
           {String(index + 1).padStart(2, "0")}
         </span>
         <span className="truncate text-right text-xs leading-none sm:text-sm">
-          {video.title}
+          {item.video.title}
         </span>
       </span>
       <span className="bg-foreground block aspect-video w-full overflow-hidden">

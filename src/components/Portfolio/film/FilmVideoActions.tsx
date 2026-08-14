@@ -1,41 +1,26 @@
-import type { FilmVideo } from "@/sanity/types";
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
-import type { VideoScrollDirection } from "./filmUtils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function FilmVideoActions({
-  selectedVideo,
-  onScroll,
+  onSelectNext,
+  onSelectPrevious,
 }: {
-  selectedVideo: FilmVideo;
-  onScroll: (direction: VideoScrollDirection) => void;
+  onSelectNext: () => void;
+  onSelectPrevious: () => void;
 }) {
   return (
-    <div className="grid items-center gap-3 md:grid-cols-3">
-      <a
-        className="flex items-center space-x-1.5 justify-self-start text-sm tracking-tighter hover:underline"
-        href={selectedVideo.url}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <span>Open Selected Video</span>
-        <span>
-          <ExternalLink className="size-5" />
-        </span>
-      </a>
-      <div className="hidden justify-center gap-1.5 md:flex">
-        <CarouselButton direction="previous" onScroll={onScroll} />
-        <CarouselButton direction="next" onScroll={onScroll} />
-      </div>
+    <div className="flex justify-center gap-1.5">
+      <CarouselButton direction="previous" onSelect={onSelectPrevious} />
+      <CarouselButton direction="next" onSelect={onSelectNext} />
     </div>
   );
 }
 
 function CarouselButton({
   direction,
-  onScroll,
+  onSelect,
 }: {
-  direction: VideoScrollDirection;
-  onScroll: (direction: VideoScrollDirection) => void;
+  direction: "previous" | "next";
+  onSelect: () => void;
 }) {
   const Icon = direction === "previous" ? ChevronLeft : ChevronRight;
 
@@ -43,8 +28,8 @@ function CarouselButton({
     <button
       type="button"
       className="border-foreground text-foreground hover:bg-foreground hover:text-background border-2 p-2 transition-colors"
-      aria-label={`Scroll videos ${direction === "previous" ? "left" : "right"}`}
-      onClick={() => onScroll(direction)}
+      aria-label={`Show ${direction} video`}
+      onClick={onSelect}
     >
       <Icon className="size-4" />
     </button>

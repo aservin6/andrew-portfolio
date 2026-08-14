@@ -31,11 +31,7 @@ export default function FilmSection() {
         ) : films.length === 0 ? (
           <PortfolioMessage message="Film projects coming soon." />
         ) : (
-          <div className="grid w-full grid-flow-row gap-12">
-            {films.map((film) => (
-              <FilmProjectCard key={film._id} film={film} />
-            ))}
-          </div>
+          <FilmProjectCard films={films} />
         )}
 
         <PageIndicator
