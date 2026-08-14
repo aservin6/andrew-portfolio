@@ -53,12 +53,12 @@ function FilmVideoTab({
       type="button"
       className={`group min-w-44 overflow-hidden border-2 text-left tracking-tighter uppercase transition-colors sm:min-w-56 lg:min-w-64 ${
         isSelected
-          ? "border-background bg-background text-foreground"
-          : "border-foreground bg-foreground text-background hover:border-background hover:bg-background hover:text-foreground"
+          ? "border-foreground bg-foreground/15 text-foreground"
+          : "border-foreground text-foreground hover:bg-foreground/10 bg-transparent"
       }`}
       onClick={(event) => onSelect(item, event.currentTarget)}
     >
-      <span className="flex min-h-0 items-end justify-between gap-3 p-2">
+      <span className="flex min-h-12 items-end justify-between gap-3 p-2">
         <span className="text-accent text-[0.625rem] font-light">
           {String(index + 1).padStart(2, "0")}
         </span>
@@ -66,15 +66,13 @@ function FilmVideoTab({
           {item.video.title}
         </span>
       </span>
-      <span className="bg-foreground block aspect-video w-full overflow-hidden">
+      <span className="block aspect-video w-full overflow-hidden">
         <img
           src={imageUrl(thumbnail, 500)}
           srcSet={imageSrcSet(thumbnail, [280, 400, 560, 720])}
           sizes="(min-width: 64rem) 16rem, 14rem"
           alt={thumbnail.alt}
-          className={`h-full w-full object-cover transition duration-500 group-hover:scale-105 ${
-            isSelected ? "opacity-100" : "opacity-70 grayscale"
-          }`}
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           loading="lazy"
           decoding="async"
         />

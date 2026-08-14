@@ -6,7 +6,7 @@ import type { SanityImage } from "./types";
 const builder = sanityClient ? imageUrlBuilder(sanityClient) : null;
 
 const fallbackImageUrl = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675"><rect width="1200" height="675" fill="#151515"/><path d="M0 0h1200v675H0z" fill="none" stroke="#cfcfcf" stroke-opacity=".3" stroke-width="2"/><text x="600" y="338" fill="#cfcfcf" font-family="Arial, sans-serif" font-size="32" text-anchor="middle">IMAGE UNAVAILABLE</text></svg>',
+  '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#151515"/><path d="M0 0h1600v900H0z" fill="none" stroke="#cfcfcf" stroke-opacity=".3" stroke-width="2"/><text x="800" y="450" fill="#cfcfcf" font-family="Arial, sans-serif" font-size="32" text-anchor="middle">IMAGE UNAVAILABLE</text></svg>',
 )}`;
 
 function hasImageAsset(
