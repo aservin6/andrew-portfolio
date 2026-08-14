@@ -1,5 +1,5 @@
 import { getSiteSettings, splitArtistName } from "@/sanity/fallbacks";
-import { urlForImage } from "@/sanity/image";
+import { imageUrl } from "@/sanity/image";
 import { usePortfolioData } from "@/sanity/usePortfolioData";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import PageIndicator from "./ui/page-indicator";
@@ -11,9 +11,7 @@ export default function Home() {
   const nameLines = siteSettings?.artistName
     ? splitArtistName(siteSettings.artistName)
     : [];
-  const profileImageSrc = settings.profileImage
-    ? urlForImage(settings.profileImage)?.width(700).quality(85).url()
-    : undefined;
+  const profileImageSrc = imageUrl(settings.profileImage, 700);
 
   return (
     <section
